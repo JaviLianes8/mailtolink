@@ -11,8 +11,8 @@ import string
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, parse
-from mailtourl._chars import (
+from mailtolink import Mailto, MailtoError, build, parse
+from mailtolink._chars import (
     DTEXT,
     FTEXT,
     PCHAR,

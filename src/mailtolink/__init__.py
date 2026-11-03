@@ -1,6 +1,6 @@
 """Parse and build mailto: URIs per RFC 6068, safely and with correct percent-encoding.
 
->>> from mailtourl import build, parse
+>>> from mailtolink import build, parse
 >>> parse("mailto:jane@example.com?subject=Hi%20there").subject
 'Hi there'
 >>> build("jane@example.com", body="one\\ntwo")
@@ -17,14 +17,14 @@ from ._parse import parse
 
 __version__ = "1.0.0"
 
-# The public names show and pickle as mailtourl.<name>, so help() and a pickle never name
+# The public names show and pickle as mailtolink.<name>, so help() and a pickle never name
 # the private module that defines them.
 for _public in (build, is_address, parse, Mailto, MailtoError):
     _public.__module__ = __name__
 for _cls in (Mailto, MailtoError):
     # Methods follow, so doctest finds their examples here (it takes properties anyway).
     for _member in vars(_cls).values():
-        if callable(_member) and str(getattr(_member, "__module__", "")).startswith("mailtourl._"):
+        if callable(_member) and str(getattr(_member, "__module__", "")).startswith("mailtolink._"):
             _member.__module__ = __name__
 del _public, _cls, _member
 

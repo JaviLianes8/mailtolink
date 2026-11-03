@@ -17,8 +17,8 @@ from email.headerregistry import Address
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, is_address, parse
-from mailtourl._address import split_address
+from mailtolink import Mailto, MailtoError, is_address, parse
+from mailtolink._address import split_address
 
 PERL = shutil.which("perl")
 

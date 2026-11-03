@@ -1,4 +1,4 @@
-# mailtourl guide
+# mailtolink guide
 
 The behaviour of every public name in detail. Each Python block below runs as a test:
 the comment lines after a statement hold what it prints.
@@ -26,7 +26,7 @@ hands the link over, and `parse` keeps them. Then:
   are not UTF-8 become U+FFFD. A `+` is never read as a space (RFC 6068 section 5).
 
 ```python
-from mailtourl import parse
+from mailtolink import parse
 
 uri = (
     " mailto:a@x.example,%20b@x.example?subject=one&SUBJECT=two"
@@ -49,7 +49,7 @@ separators, NEL, U+2028, U+2029) raises `MailtoError`, whatever field it is in, 
 recipients included. The body may hold line breaks: it is the message text.
 
 ```python
-from mailtourl import MailtoError, parse
+from mailtolink import MailtoError, parse
 
 for uri in ("mailto:a@x.example?subject=a%0Db", "mailto:a%0A@x.example", "mailto:?X=%E2%80%A8"):
     try:
@@ -85,7 +85,7 @@ for uri in ("mailto:a@x.example?subject=a%0Db", "mailto:a%0A@x.example", "mailto
   bytes that are not UTF-8 too.
 
 ```python
-from mailtourl import MailtoError, parse
+from mailtolink import MailtoError, parse
 
 for uri in (
     "mailto:a@x.example?subject=Hi&subject=again",
@@ -136,7 +136,7 @@ everything but `to` is keyword-only. It stores tuples of plain `str` and raises
 ```python
 import dataclasses
 import pickle
-from mailtourl import Mailto, parse
+from mailtolink import Mailto, parse
 
 mail = Mailto(
     ["a@x.example", "Eve <e@x.example>"],
@@ -177,7 +177,7 @@ value (body line breaks as CRLF). Each recipient argument is a `str` or an itera
 - Fields come out in a fixed order: `cc`, `bcc`, `subject`, `body`, then `headers`.
 
 ```python
-from mailtourl import build
+from mailtolink import build
 
 print(build("a@x.example", subject="100% +1 ;-) a/b?c=d&e", body="x\ny\r\nz"))
 # mailto:a@x.example?subject=100%25%20%2B1%20;-)%20a%2Fb%3Fc%3Dd%26e&body=x%0D%0Ay%0D%0Az
@@ -191,7 +191,7 @@ print(build("a@[IPv6:2001:db8::1]", headers=[("X-A", "1"), ("Keywords", "k")]))
 arguments of the wrong type:
 
 ```python
-from mailtourl import MailtoError, build
+from mailtolink import MailtoError, build
 
 for arguments in (
     {"to": "Jane <j@x.example>"},
@@ -245,7 +245,7 @@ point a later Unicode version assigns to one of those categories can be accepted
 older interpreter and refused by a newer one.
 
 ```python
-from mailtourl import is_address
+from mailtolink import is_address
 
 good = ["a.b+tag@x.example", '"a\\ b"@x.example', "é@例え.jp", "a/b@x.example"]
 bad = ["a..b@x.example", "a@x.example (Jane)", "a\u200b@x.example", "a@x/y.example"]
@@ -268,8 +268,8 @@ messages is not.
 ## Command line
 
 ```
-mailtourl parse [--strict] [--safe] [URI]
-mailtourl build [--to ADDRESS]... [--cc ADDRESS]... [--bcc ADDRESS]... [--subject TEXT] [--body TEXT] [--header NAME=VALUE]...
+mailtolink parse [--strict] [--safe] [URI]
+mailtolink build [--to ADDRESS]... [--cc ADDRESS]... [--bcc ADDRESS]... [--subject TEXT] [--body TEXT] [--header NAME=VALUE]...
 ```
 
 `parse` prints the fields as one line of JSON (ASCII, so it survives any console) and
@@ -280,7 +280,7 @@ piped text reads exactly like the same text given as `URI`; bytes that are not U
 exit with status 2. `build` prints the URI. An invalid input exits with status 2 and the
 reason on standard error, as does a missing standard input or output (a closed
 descriptor, `pythonw`, a service); `--header` without `=` is reported without echoing
-the argument. `python -m mailtourl` works the same way.
+the argument. `python -m mailtolink` works the same way.
 
 ## Stability
 

@@ -7,8 +7,8 @@ from urllib.parse import unquote
 
 import pytest
 
-from mailtourl import MailtoError, parse
-from mailtourl._positions import char_starts
+from mailtolink import MailtoError, parse
+from mailtolink._positions import char_starts
 
 
 def _offset(uri: str, *, strict: bool = False) -> int | None:

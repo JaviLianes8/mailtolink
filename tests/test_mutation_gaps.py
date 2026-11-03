@@ -6,8 +6,8 @@ import io
 
 import pytest
 
-from mailtourl import MailtoError, build, is_address, parse
-from mailtourl._cli import main
+from mailtolink import MailtoError, build, is_address, parse
+from mailtolink._cli import main
 
 
 def test_is_address_refuses_any_non_string() -> None:

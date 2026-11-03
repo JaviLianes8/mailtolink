@@ -10,8 +10,8 @@ import shlex
 from pathlib import Path
 from urllib.parse import parse_qsl
 
-import mailtourl
-from mailtourl._cli import main
+import mailtolink
+from mailtolink._cli import main
 
 ROOT = Path(__file__).resolve().parents[1]
 README = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -63,7 +63,7 @@ def test_the_readme_links_are_absolute_and_carry_the_badge() -> None:
     badge = f"[![Lianes8 Certified]({image})](https://lianes8studio.com/certified)"
     assert README.splitlines()[2] == badge
     for page in ("GUIDE.md", "CHANGELOG.md", "LICENSE"):
-        assert f"https://github.com/JaviLianes8/mailtourl/blob/main/{page}" in README
+        assert f"https://github.com/JaviLianes8/mailtolink/blob/main/{page}" in README
 
 
 def test_the_standard_library_output_quoted_in_the_readme_is_real() -> None:
@@ -78,7 +78,7 @@ def test_every_command_line_example_prints_what_the_readme_shows() -> None:
     assert len(commands) == 2
     for index, command in commands:
         argv = shlex.split(command)
-        assert argv[0] == "mailtourl"
+        assert argv[0] == "mailtolink"
         out = io.StringIO()
         assert main(argv[1:], stdout=out) == 0
         assert out.getvalue() == lines[index + 1] + "\n"
@@ -86,7 +86,7 @@ def test_every_command_line_example_prints_what_the_readme_shows() -> None:
 
 def test_the_api_table_lists_every_public_name() -> None:
     table = README.split("## API", 1)[1].split("\n## ", 1)[0]
-    for name in mailtourl.__all__:
+    for name in mailtolink.__all__:
         assert f"`{name}" in table, name
 
 
@@ -94,12 +94,12 @@ def test_version_matches_pyproject() -> None:
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     match = re.search(r'^version = "([^"]+)"$', text, flags=re.MULTILINE)
     assert match is not None
-    assert match.group(1) == mailtourl.__version__
+    assert match.group(1) == mailtolink.__version__
 
 
 def test_changelog_has_an_entry_for_this_version() -> None:
     text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert f"## [{mailtourl.__version__}]" in text
+    assert f"## [{mailtolink.__version__}]" in text
 
 
 def test_no_em_dash_anywhere_in_the_tree() -> None:

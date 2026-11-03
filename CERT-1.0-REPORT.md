@@ -1,7 +1,8 @@
-# mailtourl 1.0.0 certification report
+# mailtolink 1.0.0 certification report
 
-The 1.0.0 certification bar (19 items) applied to mailtourl. PyPI has no release of
-mailtourl (`https://pypi.org/pypi/mailtourl/json` answered 404 on 2026-10-22), so there is
+The 1.0.0 certification bar (19 items) applied to mailtolink. PyPI has no release of
+mailtolink (the development name answered 404 on 2026-10-22, `https://pypi.org/pypi/mailtolink/json`
+answered 404 on 2026-11-03), so there is
 no upgrade path to check; the changes below are against `main` at 74305ea (0.2.0, never
 published).
 
@@ -56,7 +57,7 @@ reproduced:
   equality; `Mailto(None)` and `build(to=5)` raised Python's own "object is not iterable".
 - `parse("   ")` reported offset 3 (the length) instead of 0.
 - `Mailto` and `MailtoError` pickled under their private modules.
-- `python -m mailtourl` ran the command on import, so doctest collection could not import it.
+- `python -m mailtolink` ran the command on import, so doctest collection could not import it.
 - No public docstring had a runnable example; the README linked LICENSE relatively; no GUIDE.
 - `release.ps1` refused any upload once the name existed on PyPI (a second release could
   never go out).
@@ -129,10 +130,10 @@ entry point, `licenses/LICENSE`; no tests or scripts. Sdist: sources, tests,
 `tests/upstream/MANIFEST.json` only (no fetched file), README, GUIDE, CHANGELOG,
 CONTRIBUTING, LICENSE, scripts; no `IMPROVEMENTS-round*` or `CERT-1.0-*`. The sdist test
 suite, with `src` removed so it imports the installed wheel, passed 657, skipped 1 (the
-opt-in e2e), and the sdist tree with `MAILTOURL_E2E=1` passed 669, none skipped, on each
+opt-in e2e), and the sdist tree with `MAILTOLINK_E2E=1` passed 669, none skipped, on each
 of CPython 3.10.19, 3.11.5, 3.12.12, 3.13.2, 3.14.2 and 3.14.2t, with the fetched
 sources, Node.js and Perl present. 3.8.20 and 3.9.25 refuse the wheel. The e2e
-test (`MAILTOURL_E2E=1`) builds, checks metadata (Production/Stable, no runtime
+test (`MAILTOLINK_E2E=1`) builds, checks metadata (Production/Stable, no runtime
 requirement), runs the doctests of the installed package and drives the CLI.
 
 ## Author mutation round (item 18)
@@ -188,7 +189,7 @@ Perl, on Elena's PC (`-x`, first failing test shown).
 ## Gates (item 15)
 
 At ac88d89 on Elena's PC from a fresh clone, CPython 3.14.2, ruff 0.17.1, with the
-fetched sources, Node.js, Perl and `MAILTOURL_E2E=1`: `ruff format --check .`,
+fetched sources, Node.js, Perl and `MAILTOLINK_E2E=1`: `ruff format --check .`,
 `ruff check .`, `mypy --strict src`, `mypy --strict src tests` and `pytest` (501 passed,
 none skipped) each exit 0.
 
@@ -207,7 +208,7 @@ commits: 7c6da55 (code and tests), 1e47fbc (docs), ab4ddb5 (installed-package e2
 | a | M1 | medium | `is_address` accepted a domain holding an ASCII character that needs an escape (`/`, `#`, `&`, ...), which no URI can carry | `is_address` applies the domain rule of `build` (`_address.check_domain`, shared): true exactly when `build` can write the address; `tests/test_writable.py` (per character, plus 20,000 seeded candidates agreeing with `build`) |
 | a | M2 | medium | `safe()` did not make a value buildable | `safe()` now guarantees it: drops a subject or body with a control `build` refuses, allowed headers `build` refuses, repeats of an allowed name (first wins); `to_uri` docstring and docs state what it refuses in either mode; `tests/test_writable.py` (cases plus 12,000 seeded default-mode reads, each `safe().to_uri()` re-read strictly) |
 | a | L1 | low | `Mailto` refused `None` where `build` takes it | `Mailto` takes `None` for `to`, `cc`, `bcc`, `headers`, now their defaults |
-| a | L2 | low | `build`, `parse`, `is_address` named private modules and aliases | `__module__` set to `mailtourl`; `build` signature spells out its types; `test_public_functions_live_under_the_package_name` (pickle, pydoc) |
+| a | L2 | low | `build`, `parse`, `is_address` named private modules and aliases | `__module__` set to `mailtolink`; `build` signature spells out its types; `test_public_functions_live_under_the_package_name` (pickle, pydoc) |
 | a | L3 | low | `MailtoError` example missed an import | every public docstring example imports what it uses; `test_every_public_docstring_example_runs_in_a_fresh_namespace` |
 | a | L4 | low | constructor parameter `message` vs attribute `reason` | renamed to `reason`; `test_mailto_error_takes_its_reason_by_name` |
 | a | L5 | low | README mischaracterised the other "mailto" packages | reworded after re-fetching the PyPI simple index and the JSON of all 22 names on 2026-10-22 |
@@ -249,7 +250,7 @@ Mutants re-applied to the fixed tree, one at a time, against the new tests:
 | stdin strips all trailing whitespace | killed: `test_strict_input_keeps_its_padding_on_standard_input` |
 
 Gates at ab4ddb5 on Elena's PC from a bundle of the branch, CPython 3.14.2 in a fresh
-venv, fetched sources, Node.js, Perl and `MAILTOURL_E2E=1`: `ruff format --check .`,
+venv, fetched sources, Node.js, Perl and `MAILTOLINK_E2E=1`: `ruff format --check .`,
 `ruff check .`, `mypy --strict src`, `mypy --strict src tests` and `pytest` (608 passed,
 none skipped) each exit 0. The decoder mapping and the offset injection check also ran
 clean on CPython 3.10.19, 3.11.5, 3.12.12 and 3.14.2t on this PC.
@@ -314,7 +315,7 @@ Mutants applied to the fixed tree, one at a time:
 Gates at 2224141 from a fresh clone of the pushed branch on this PC (the interpreters
 live only here; turn `pc/5`): wheel and sdist built, `twine check --strict` passed. On
 each of CPython 3.10.19, 3.11.5, 3.12.12, 3.13.2, 3.14.2 and 3.14.2t, the sdist tree
-with the fetched sources, Node.js, Perl and `MAILTOURL_E2E=1` passed 669 (none skipped),
+with the fetched sources, Node.js, Perl and `MAILTOLINK_E2E=1` passed 669 (none skipped),
 and the suite against the installed wheel (`src` removed) passed 657, skipped 1 (the
 opt-in e2e). `ruff format --check .`, `ruff check .`, `mypy --strict src` and
 `mypy --strict src tests` exit 0 at the same commit.
@@ -353,7 +354,7 @@ Mutants applied to the fixed tree, one at a time, against `tests/test_first_offe
 Fix commit: 1ead1ea (code, tests, GUIDE, CHANGELOG). Gates at 1ead1ea: `ruff format
 --check .`, `ruff check .`, `mypy --strict src` and `mypy --strict src tests` exit 0 on
 this PC; `pytest` from an archive of the commit on Elena's PC (turn `elena/5`), CPython
-3.14.2 in a fresh venv, fetched sources, Node.js, Perl and `MAILTOURL_E2E=1`: 681 passed,
+3.14.2 in a fresh venv, fetched sources, Node.js, Perl and `MAILTOLINK_E2E=1`: 681 passed,
 none skipped.
 
 ### Round 4 (re-verification of round 3 by lenses c and e on 6f60ae1)
@@ -387,7 +388,7 @@ The lens c probe `utf8_hides.py` reports 0 mismatches out of 9 on the fixed tree
 Fix commit: 0fa30f9 (code, tests, GUIDE, CHANGELOG). Gates at 0fa30f9: `ruff format
 --check .`, `ruff check .`, `mypy --strict src` and `mypy --strict src tests` exit 0 on
 this PC; `pytest` from an archive of the commit on Elena's PC (turn `elena/2`), CPython
-3.14.2 in a fresh venv, fetched sources, Node.js, Perl and `MAILTOURL_E2E=1`: 709 tests, exit
+3.14.2 in a fresh venv, fetched sources, Node.js, Perl and `MAILTOLINK_E2E=1`: 709 tests, exit
 0, none skipped.
 
 ### Round 5 (re-verification of round 4 by lens e on 8128ef4)
@@ -423,7 +424,7 @@ test as an escape (tests only; no behaviour change, so nothing new in the CHANGE
 Gates at 34214c9: `ruff format --check .`, `ruff check .`, `mypy --strict src` and `mypy
 --strict src tests` exit 0 on this PC; `pytest` from an archive of the commit on Elena's
 PC (turn `elena/4`), CPython 3.14.2 in a fresh venv, fetched sources, Node.js, Perl and
-`MAILTOURL_E2E=1`: 715 tests, exit 0, none skipped.
+`MAILTOLINK_E2E=1`: 715 tests, exit 0, none skipped.
 
 ### Disputed findings
 
@@ -451,7 +452,7 @@ GUIDE give the output the docs show; 30 doctests pass; a sweep of 40 probes (enc
 `+` per field, domains holding `+`, 21 strict offset cases, header name errors, tuple and
 list subclasses, the CLI with a malformed `--header` and with no stdin or stdout) found
 nothing. Lens d, round 2: on CPython 3.10.19, 3.11.5, 3.12.12, 3.13.2, 3.14.2 and 3.14.2t
-the sdist tree with `MAILTOURL_E2E=1`, fetched sources, Node.js and Perl passed 669, none
+the sdist tree with `MAILTOLINK_E2E=1`, fetched sources, Node.js and Perl passed 669, none
 skipped, and the installed wheel passed 657 with 1 skipped; the 3.14.2t memory peak is
 2.0x with the GIL off and on; `twine check --strict`, `check-wheel-contents`, reproducible
 bytes and the refusal of 3.9 all pass; a sweep of 40 API and CLI probes found nothing.
@@ -464,7 +465,7 @@ is in `review-r1/out`.
 | # | Item | Result |
 | --- | --- | --- |
 | 1 | Public API stable | PASS: signatures inspected; every behaviour change is in CHANGELOG 1.0.0 |
-| 2 | `__all__` exact, no private imports | PASS: `__all__` is the five names, all with `__module__` `mailtourl`; README, GUIDE and CHANGELOG import only from `mailtourl` |
+| 2 | `__all__` exact, no private imports | PASS: `__all__` is the five names, all with `__module__` `mailtolink`; README, GUIDE and CHANGELOG import only from `mailtolink` |
 | 3 | Docstrings and doctests | PASS: every public name and `Mailto` method has an example; the doctests run in the gate |
 | 4 | Typed end to end | PASS: `mypy --strict` on `src` (13 files) and `src tests` (42 files) exit 0; `py.typed` in the wheel; no `Any` in the public hints |
 | 5 | Typed, bounded errors | PASS: `MailtoError` is a `ValueError` with `reason` and `offset`; a 200,000-character hostile input gives a message under 300 characters |
@@ -477,7 +478,7 @@ is in `review-r1/out`.
 | 12 | Dated CHANGELOG section | PASS: `[1.0.0] - 2026-10-22` with a stable surface summary and Changed, Fixed, Added |
 | 13 | pyproject | PASS: 1.0.0, Production/Stable, Python 3.10 to 3.14, MIT with License-File, four project URLs, 7 keywords, no runtime dependency |
 | 14 | sdist and wheel contents | PASS: `check-wheel-contents` OK, a rebuild gives the identical wheel; the sdist ships only `MANIFEST.json` under `tests/upstream` |
-| 15 | Gates | PASS: format, lint, `mypy --strict src` and `pytest` (715 passed, none skipped, with `MAILTOURL_E2E=1`, fetched sources, Node.js and Perl) each exit 0 |
+| 15 | Gates | PASS: format, lint, `mypy --strict src` and `pytest` (715 passed, none skipped, with `MAILTOLINK_E2E=1`, fetched sources, Node.js and Perl) each exit 0 |
 | 16 | Independent review | PASS: this review; nothing posted to GitHub |
 | 17 | PR and trace guard | PASS for this branch: tree, history, PR title and body clean, no em-dash, source files of 200 lines or fewer, branches `main` and `release/1.0.0` only; merge and publish left to the maintainer |
 | 18 | Contracts bite | PASS: mutation tables recorded here; a spot round of 6 mutants (`+` raw in query addresses, cc and bcc swapped, case-sensitive `safe` allow list, quote cap 600, case-sensitive scheme, pickle dropping `offset`) killed 6 of 6 |

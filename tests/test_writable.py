@@ -8,7 +8,7 @@ from typing import Any
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 NEEDS_AN_ESCAPE = "#%&/=?^`{|}"
 

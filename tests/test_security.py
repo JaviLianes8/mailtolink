@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, parse
+from mailtolink import Mailto, MailtoError, build, parse
 
 INJECTIONS = [
     "mailto:a@x.example?subject=Hi%0D%0ABcc:%20spy@evil.example",

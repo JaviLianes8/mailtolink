@@ -10,8 +10,8 @@ import tracemalloc
 
 import pytest
 
-import mailtourl
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+import mailtolink
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 
 def test_mailto_takes_none_like_build() -> None:
@@ -25,19 +25,19 @@ def test_mailto_takes_none_like_build() -> None:
 
 @pytest.mark.parametrize("name", ["build", "parse", "is_address"])
 def test_public_functions_live_under_the_package_name(name: str) -> None:
-    function = getattr(mailtourl, name)
-    assert function.__module__ == "mailtourl"
-    assert b"mailtourl._" not in pickle.dumps(function)
+    function = getattr(mailtolink, name)
+    assert function.__module__ == "mailtolink"
+    assert b"mailtolink._" not in pickle.dumps(function)
     assert pickle.loads(pickle.dumps(function)) is function
     shown = pydoc.render_doc(function)
-    assert "mailtourl._" not in shown
+    assert "mailtolink._" not in shown
     assert "Addresses" not in shown and "Headers" not in shown
 
 
 def test_every_public_docstring_example_runs_in_a_fresh_namespace() -> None:
     finder, runner = doctest.DocTestFinder(recurse=False), doctest.DocTestRunner()
-    for name in mailtourl.__all__:
-        for test in finder.find(getattr(mailtourl, name), name, globs={}):
+    for name in mailtolink.__all__:
+        for test in finder.find(getattr(mailtolink, name), name, globs={}):
             runner.run(test)
     assert runner.summarize(verbose=False).failed == 0
 

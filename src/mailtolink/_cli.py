@@ -16,7 +16,7 @@ from ._parse import parse
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="mailtourl", description="Read or write mailto: URIs.")
+    parser = argparse.ArgumentParser(prog="mailtolink", description="Read or write mailto: URIs.")
     commands = parser.add_subparsers(dest="command", required=True)
     read = commands.add_parser("parse", help="print the fields of a mailto: URI as JSON")
     read.add_argument("uri", nargs="?", help="the URI; read from standard input when absent")
@@ -76,7 +76,7 @@ def _read(stream: TextIO | None) -> str:
 def main(
     argv: Sequence[str] | None = None, stdin: TextIO | None = None, stdout: TextIO | None = None
 ) -> int:
-    """Run the ``mailtourl`` command and return its exit status."""
+    """Run the ``mailtolink`` command and return its exit status."""
     args = _parser().parse_args(argv)
     out: TextIO | None = stdout or sys.stdout
     try:
@@ -107,7 +107,7 @@ def main(
             )
     except MailtoError as error:
         if sys.stderr is not None:
-            print(f"mailtourl: {error}", file=sys.stderr)
+            print(f"mailtolink: {error}", file=sys.stderr)
         return 2
     out.write("\n")
     return 0

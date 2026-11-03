@@ -7,7 +7,7 @@ import sys
 
 import pytest
 
-from mailtourl._cli import main
+from mailtolink._cli import main
 
 
 def test_no_standard_input_exits_2_with_one_line(
@@ -16,7 +16,7 @@ def test_no_standard_input_exits_2_with_one_line(
     # sys.stdin is None under a closed descriptor, pythonw, a service or a scheduled task.
     monkeypatch.setattr(sys, "stdin", None)
     assert main(["parse"], stdout=io.StringIO()) == 2
-    assert capsys.readouterr().err == "mailtourl: no standard input\n"
+    assert capsys.readouterr().err == "mailtolink: no standard input\n"
 
 
 @pytest.mark.parametrize(
@@ -27,7 +27,7 @@ def test_no_standard_output_exits_2_with_one_line(
 ) -> None:
     monkeypatch.setattr(sys, "stdout", None)
     assert main(argv) == 2
-    assert capsys.readouterr().err == "mailtourl: no standard output\n"
+    assert capsys.readouterr().err == "mailtolink: no standard output\n"
 
 
 def test_without_standard_error_the_reason_never_lands_on_standard_output(
@@ -50,7 +50,7 @@ def test_a_header_without_equals_never_echoes_its_value(
     argv = ["build", "--to", "a@x.example", "--header", "X-Auth-Token: s3cr3t-0123456789abcdef"]
     assert main(argv, stdout=io.StringIO()) == 2
     err = capsys.readouterr().err
-    assert err == "mailtourl: --header expects NAME=VALUE\n"
+    assert err == "mailtolink: --header expects NAME=VALUE\n"
     assert "s3cr3t" not in err
 
 
@@ -60,7 +60,7 @@ def test_a_header_name_that_is_not_a_field_name_never_echoes_it(
     argv = ["build", "--header", "Authorization: Bearer s3cr3t=1"]
     assert main(argv, stdout=io.StringIO()) == 2
     err = capsys.readouterr().err
-    assert err == "mailtourl: character ':' not allowed in a header field name\n"
+    assert err == "mailtolink: character ':' not allowed in a header field name\n"
 
 
 def test_the_bad_byte_is_counted_from_the_start_of_the_input_bom_included(
@@ -68,7 +68,7 @@ def test_the_bad_byte_is_counted_from_the_start_of_the_input_bom_included(
 ) -> None:
     stdin = io.TextIOWrapper(io.BytesIO(b"\xef\xbb\xbfmailto:?subject=\xff"), encoding="utf-8")
     assert main(["parse"], stdin=stdin, stdout=io.StringIO()) == 2
-    assert capsys.readouterr().err == "mailtourl: standard input is not UTF-8 at byte 19\n"
+    assert capsys.readouterr().err == "mailtolink: standard input is not UTF-8 at byte 19\n"
 
 
 def test_an_empty_uri_argument_is_parsed_not_replaced_by_stdin(
@@ -77,7 +77,7 @@ def test_an_empty_uri_argument_is_parsed_not_replaced_by_stdin(
     out = io.StringIO()
     assert main(["parse", ""], stdin=io.StringIO("mailto:a@x.example\n"), stdout=out) == 2
     assert out.getvalue() == ""
-    assert capsys.readouterr().err == "mailtourl: not a mailto: URI at offset 0\n"
+    assert capsys.readouterr().err == "mailtolink: not a mailto: URI at offset 0\n"
 
 
 def test_the_safe_option_says_it_applies_mailto_safe(capsys: pytest.CaptureFixture[str]) -> None:

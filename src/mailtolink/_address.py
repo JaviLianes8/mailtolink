@@ -111,7 +111,7 @@ def is_address(text: str) -> bool:
     noncharacters (the guide lists them). A ``text`` that is not a ``str`` raises
     TypeError.
 
-    >>> from mailtourl import is_address
+    >>> from mailtolink import is_address
     >>> is_address("jane@example.com"), is_address('"j\\ doe"@[192.0.2.1]')
     (True, True)
     >>> is_address("Jane <jane@example.com>"), is_address("jane@example.com ")

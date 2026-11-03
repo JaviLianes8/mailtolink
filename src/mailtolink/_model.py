@@ -70,7 +70,7 @@ class Mailto:
     plain ``str`` and raises TypeError for anything else. It does not validate addresses:
     ``to_uri`` does.
 
-    >>> from mailtourl import Mailto
+    >>> from mailtolink import Mailto
     >>> mail = Mailto("a@example.com", cc=["b@example.com"], headers={"Keywords": "k"})
     >>> mail.to, mail.cc, mail.headers
     (('a@example.com',), ('b@example.com',), (('Keywords', 'k'),))
