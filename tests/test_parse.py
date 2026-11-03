@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, parse
+from mailtolink import Mailto, MailtoError, parse
 
 
 def test_parse_single_recipient() -> None:

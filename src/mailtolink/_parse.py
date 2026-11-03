@@ -145,7 +145,7 @@ def parse(uri: str, *, strict: bool = False) -> Mailto:
     MailtoError: it would inject a header. A ``uri`` that is not a ``str`` raises
     TypeError.
 
-    >>> from mailtourl import parse
+    >>> from mailtolink import parse
     >>> mail = parse("mailto:a@example.com,b@example.com?cc=c@example.com&subject=Hi%20there")
     >>> mail.to, mail.cc, mail.subject
     (('a@example.com', 'b@example.com'), ('c@example.com',), 'Hi there')
@@ -153,7 +153,7 @@ def parse(uri: str, *, strict: bool = False) -> Mailto:
     '1+1=2'
     >>> parse("mailto:a@example.com?subject=a b", strict=True)
     Traceback (most recent call last):
-    mailtourl.MailtoError: ' ' must be percent-encoded in the subject value at offset 30
+    mailtolink.MailtoError: ' ' must be percent-encoded in the subject value at offset 30
     """
     if not isinstance(uri, str):
         raise TypeError(f"expected str, got {type(uri).__name__}")

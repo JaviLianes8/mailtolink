@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import MailtoError, parse
+from mailtolink import MailtoError, parse
 
 STRICT = [
     # An address or field name that breaks the grammar: the character, not where it starts.

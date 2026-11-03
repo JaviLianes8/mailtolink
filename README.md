@@ -1,4 +1,4 @@
-# mailtourl
+# mailtolink
 
 [![Lianes8 Certified](https://lianes8studio.com/certified/lianes8-certified-badge.svg)](https://lianes8studio.com/certified)
 
@@ -14,21 +14,21 @@ Parse, validate and safely build `mailto:` URIs per RFC 6068.
   line breaks written as `%0D%0A`.
 - Typed, frozen values, no dependencies, a command line for scripts.
 
-The [guide](https://github.com/JaviLianes8/mailtourl/blob/main/GUIDE.md) describes every
+The [guide](https://github.com/JaviLianes8/mailtolink/blob/main/GUIDE.md) describes every
 public name in detail; the
-[changelog](https://github.com/JaviLianes8/mailtourl/blob/main/CHANGELOG.md) lists what
+[changelog](https://github.com/JaviLianes8/mailtolink/blob/main/CHANGELOG.md) lists what
 changed in each release. From 1.0.0 the public API follows Semantic Versioning.
 
 ## Install
 
 ```
-pip install mailtourl
+pip install mailtolink
 ```
 
 ## Usage
 
 ```python
-from mailtourl import build, parse
+from mailtolink import build, parse
 
 uri = build(
     ["jane@example.com", "jack@example.com"],
@@ -55,7 +55,7 @@ read as a space.
 ### Strict mode
 
 ```python
-from mailtourl import MailtoError, parse
+from mailtolink import MailtoError, parse
 
 try:
     parse("mailto:joe@example.com?cc=bob@example.com?body=hello", strict=True)
@@ -77,7 +77,7 @@ too.
 ### Header injection and unsafe fields
 
 ```python
-from mailtourl import MailtoError, parse
+from mailtolink import MailtoError, parse
 
 try:
     parse("mailto:a@example.com?subject=Hi%0D%0ABcc:%20spy@evil.example")
@@ -104,7 +104,7 @@ allow, and drops whatever of those `to_uri` could not write, so its result alway
 ### Building
 
 ```python
-from mailtourl import MailtoError, build
+from mailtolink import MailtoError, build
 
 print(build('"not@me"@example.org', headers={"In-Reply-To": "<id@example.com>"}))
 # mailto:%22not%40me%22@example.org?In-Reply-To=%3Cid@example.com%3E
@@ -134,15 +134,15 @@ escape the `&` of the result with `html.escape`.
 ## Command line
 
 ```
-$ mailtourl parse "mailto:a@example.com?subject=Hi&body=one%0D%0Atwo"
+$ mailtolink parse "mailto:a@example.com?subject=Hi&body=one%0D%0Atwo"
 {"to": ["a@example.com"], "cc": [], "bcc": [], "subject": "Hi", "body": "one\r\ntwo", "headers": []}
-$ mailtourl build --to a@example.com --subject "Re: 50% off" --header Keywords=sale
+$ mailtolink build --to a@example.com --subject "Re: 50% off" --header Keywords=sale
 mailto:a@example.com?subject=Re:%2050%25%20off&Keywords=sale
 ```
 
 `parse` takes `--strict` and `--safe` and reads standard input when the URI is left out,
 as UTF-8 whatever the locale, less one line ending, so a pipe reads like an argument. An
-invalid input exits with status 2 and the reason on standard error. `python -m mailtourl`
+invalid input exits with status 2 and the reason on standard error. `python -m mailtolink`
 works the same way.
 
 ## API
@@ -180,7 +180,7 @@ on 2026-10-22), `mailto-uri` (1.2.0, released in 2019) only builds URIs and leav
 addresses unencoded; the others send, manage, analyse or validate email, render links or
 redirect to webmail, and none parses a `mailto:` URI.
 Other languages ship this: Ruby's `URI::MailTo`, Perl's `URI::mailto`, Android's
-`android.net.MailTo` and Swift's `swift-rfc-6068`. `mailtourl` is a small, typed,
+`android.net.MailTo` and Swift's `swift-rfc-6068`. `mailtolink` is a small, typed,
 zero-dependency codec that reads like a browser, validates like the RFC and refuses
 header injection in both directions.
 
@@ -190,11 +190,11 @@ header injection in both directions.
 in `tests/upstream/MANIFEST.json` (they are not part of the repository; their tests skip
 without them). The comparisons with Node.js and Perl run when `node`, and `perl` with the
 URI module, are on PATH. `scripts/check.ps1` runs format, lint, types and tests. Set
-`MAILTOURL_E2E=1` to also build the wheel and test the installed package.
+`MAILTOLINK_E2E=1` to also build the wheel and test the installed package.
 
 ## License
 
-MIT. See [LICENSE](https://github.com/JaviLianes8/mailtourl/blob/main/LICENSE).
+MIT. See [LICENSE](https://github.com/JaviLianes8/mailtolink/blob/main/LICENSE).
 
 ## Links
 

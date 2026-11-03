@@ -12,7 +12,7 @@ import pytest
 SRC = Path(__file__).resolve().parents[1] / "src"
 
 SNIPPET = """
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 mail = parse("mailto:a@x.example")
 reveal_type(mail)
 reveal_type(mail.to)
@@ -35,14 +35,14 @@ mail.header(1)
 """
 
 REVEALED = [
-    "mailtourl._model.Mailto",
+    "mailtolink._model.Mailto",
     "tuple[str, ...]",
     "str | None",
     "tuple[tuple[str, str], ...]",
     "tuple[str, ...]",
     "str | None",
     "tuple[str, ...]",
-    "mailtourl._model.Mailto",
+    "mailtolink._model.Mailto",
     "str",
     "str",
     "bool",

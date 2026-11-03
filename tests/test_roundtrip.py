@@ -5,7 +5,7 @@ from __future__ import annotations
 import random
 import re
 
-from mailtourl import Mailto, build, is_address, parse
+from mailtolink import Mailto, build, is_address, parse
 
 ATEXT = "abcXYZ019!#$%&'*+-/=?^_`{|}~é納"
 # Domain atoms avoid the atext characters a URI cannot hold raw (and "+", which a form

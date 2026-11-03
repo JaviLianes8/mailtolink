@@ -1,4 +1,4 @@
-"""Run the command line with ``python -m mailtourl``."""
+"""Run the command line with ``python -m mailtolink``."""
 
 from __future__ import annotations
 

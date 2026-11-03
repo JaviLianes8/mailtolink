@@ -9,8 +9,8 @@ from typing import Any
 
 import pytest
 
-import mailtourl
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+import mailtolink
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 SIGNATURES = {
     "parse": "(uri: 'str', *, strict: 'bool' = False) -> 'Mailto'",
@@ -34,7 +34,7 @@ METHODS = {
 
 @pytest.mark.parametrize("name", sorted(SIGNATURES))
 def test_function_signatures_are_pinned(name: str) -> None:
-    assert str(inspect.signature(getattr(mailtourl, name))) == SIGNATURES[name]
+    assert str(inspect.signature(getattr(mailtolink, name))) == SIGNATURES[name]
 
 
 @pytest.mark.parametrize("name", sorted(METHODS))
@@ -59,8 +59,8 @@ def test_public_classes_live_and_pickle_under_the_package_name() -> None:
     mail = Mailto("a@x.example", cc="b@x.example", body="b", headers={"K": "v"})
     error = MailtoError("bad", 7)
     for value in (mail, error):
-        assert type(value).__module__ == "mailtourl"
-        assert b"mailtourl._" not in pickle.dumps(value)
+        assert type(value).__module__ == "mailtolink"
+        assert b"mailtolink._" not in pickle.dumps(value)
     assert pickle.loads(pickle.dumps(mail)) == mail
     copy = pickle.loads(pickle.dumps(error))
     assert (copy.reason, copy.offset, str(copy)) == ("bad", 7, "bad at offset 7")

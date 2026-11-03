@@ -109,14 +109,14 @@ def build(
     and TypeError for arguments of the wrong type. Body line breaks are written as CRLF,
     and "+" as %2B in field values and in cc and bcc addresses.
 
-    >>> from mailtourl import build
+    >>> from mailtolink import build
     >>> build(["a@example.com", "b@example.com"], subject="Re: 1+1", body="hi\nthere")
     'mailto:a@example.com,b@example.com?subject=Re:%201%2B1&body=hi%0D%0Athere'
     >>> build(cc="c@example.com", headers={"Keywords": "a&b"})
     'mailto:?cc=c@example.com&Keywords=a%26b'
     >>> build("a@example.com", subject="Hi\r\nBcc: spy@evil.example")
     Traceback (most recent call last):
-    mailtourl.MailtoError: control character '\r' in subject
+    mailtolink.MailtoError: control character '\r' in subject
     """
     fields: list[tuple[str, str]] = []
     for name, addresses in (("cc", cc), ("bcc", bcc)):

@@ -1,4 +1,4 @@
-"""The mailtourl command, driven in process with injected streams."""
+"""The mailtolink command, driven in process with injected streams."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import json
 
 import pytest
 
-from mailtourl._cli import main
+from mailtolink._cli import main
 
 
 def _run(*argv: str, stdin: str = "") -> tuple[int, str]:
@@ -45,7 +45,7 @@ def test_parse_safe_drops_unsafe_headers() -> None:
 def test_parse_strict_reports_the_error_and_exits_2(capsys: pytest.CaptureFixture[str]) -> None:
     status, out = _run("parse", "--strict", "mailto:a@x.example#top")
     assert (status, out) == (2, "")
-    assert capsys.readouterr().err == "mailtourl: a mailto: URI takes no fragment at offset 18\n"
+    assert capsys.readouterr().err == "mailtolink: a mailto: URI takes no fragment at offset 18\n"
 
 
 def test_parse_reports_header_injection(capsys: pytest.CaptureFixture[str]) -> None:
@@ -99,7 +99,7 @@ def test_build_errors_exit_2(
     status, out = _run(*argv)
     assert (status, out) == (2, "")
     err = capsys.readouterr().err
-    assert err.startswith("mailtourl: ") and words in err
+    assert err.startswith("mailtolink: ") and words in err
 
 
 def test_a_command_is_required(capsys: pytest.CaptureFixture[str]) -> None:

@@ -13,7 +13,7 @@ import subprocess
 
 import pytest
 
-from mailtourl import build, parse
+from mailtolink import build, parse
 
 NODE = shutil.which("node")
 pytestmark = pytest.mark.skipif(NODE is None, reason="node is not installed")

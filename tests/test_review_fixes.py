@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 LS = chr(0x2028)
 # Whitespace, controls, invisible formatting and noncharacters, as code points.

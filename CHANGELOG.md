@@ -8,11 +8,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [1.0.0] - 2026-10-22
 
-The public API is now stable: the five names in `mailtourl.__all__` (`parse`, `build`,
+The public API is now stable: the five names in `mailtolink.__all__` (`parse`, `build`,
 `Mailto`, `MailtoError`, `is_address`), their signatures, defaults and error types, and
-the `mailtourl` command (its options, the JSON that `parse` prints and its exit
+the `mailtolink` command (its options, the JSON that `parse` prints and its exit
 statuses) follow Semantic Versioning from this release on. No release
-before this one was published to PyPI. What is stable:
+before this one was published to PyPI. The project was developed as `mailtourl`, a
+name PyPI refused as too close to an existing project; the distribution, the import
+package and the command are now `mailtolink`. What is stable:
 
 - Reading: `parse` reads a URI after the cleaning a browser applies to a link, or checks
   it against the RFC 6068 grammar with `strict=True`; in both modes a decoded line break
@@ -33,14 +35,14 @@ before this one was published to PyPI. What is stable:
 - `Mailto` stores plain `str` values when given `str` subclasses, and its constructor,
   `build` and `Mailto.safe` raise `TypeError` with a clear message for a recipient list,
   header collection or allow list of the wrong type.
-- `Mailto` and `MailtoError` report `mailtourl` as their module, so their reprs and
-  pickles name `mailtourl.Mailto` and `mailtourl.MailtoError`, never a private module.
+- `Mailto` and `MailtoError` report `mailtolink` as their module, so their reprs and
+  pickles name `mailtolink.Mailto` and `mailtolink.MailtoError`, never a private module.
 - Error messages quote at most 60 characters of the input: two strict-mode messages
   quoted a whole header field name, however long. A lone surrogate is reported by its
   code point.
 - For input made only of spaces and controls, the "not a mailto: URI" error reports
   offset 0 instead of the length of the input.
-- `python -m mailtourl` runs the command only when executed, not on import.
+- `python -m mailtolink` runs the command only when executed, not on import.
 - `is_address` refuses a domain name holding an ASCII character that would need
   percent-encoding (`` # % & / = ? ^ ` { | } ``), so it is true exactly when `build` can
   write the address, and `Mailto.safe` drops such a recipient.
@@ -51,7 +53,7 @@ before this one was published to PyPI. What is stable:
   `build` does.
 - The first parameter of `MailtoError` is named `reason`, like the attribute (it was
   `message`).
-- `build`, `parse` and `is_address` report `mailtourl` as their module, and the
+- `build`, `parse` and `is_address` report `mailtolink` as their module, and the
   signature of `build` spells out its parameter types instead of private aliases.
 - `build`, `parse` and `is_address` read a `str` subclass as plain `str`, as `Mailto`
   does, so a subclass that overrides `__iter__` or `__len__` cannot hide a line break
@@ -115,7 +117,7 @@ before this one was published to PyPI. What is stable:
   the offset of the first problem; `MailtoError` gains `reason` and `offset`.
 - `is_address` tells whether a string is an addr-spec a `mailto:` URI may carry.
 - `Mailto.recipients`, `header`, `header_all`, `safe` and `to_uri`.
-- A `mailtourl` command (and `python -m mailtourl`) with `parse` and `build`.
+- A `mailtolink` command (and `python -m mailtolink`) with `parse` and `build`.
 
 ### Changed
 
@@ -145,7 +147,7 @@ before this one was published to PyPI. What is stable:
   `to`, `cc` and `bcc` recipients, `subject`, `body` and other header fields,
   with correct percent-encoding in both directions.
 
-[Unreleased]: https://github.com/JaviLianes8/mailtourl/commits/main
-[1.0.0]: https://github.com/JaviLianes8/mailtourl/compare/74305ea...main
-[0.2.0]: https://github.com/JaviLianes8/mailtourl/compare/e38d9ed...74305ea
-[0.1.0]: https://github.com/JaviLianes8/mailtourl/commit/e38d9ed
+[Unreleased]: https://github.com/JaviLianes8/mailtolink/commits/main
+[1.0.0]: https://github.com/JaviLianes8/mailtolink/compare/74305ea...main
+[0.2.0]: https://github.com/JaviLianes8/mailtolink/compare/e38d9ed...74305ea
+[0.1.0]: https://github.com/JaviLianes8/mailtolink/commit/e38d9ed

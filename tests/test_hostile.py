@@ -8,7 +8,7 @@ from collections.abc import Callable
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 BIG = 100_000
 

@@ -1,4 +1,4 @@
-# mailtourl improvement round
+# mailtolink improvement round
 
 Progress:
 - [x] Brainstorm ranked improvements (this file)
@@ -93,7 +93,7 @@ sources below:
    and the allowed headers (`keywords` by default, per section 4), dropping the rest.
 7. **Address check.** `is_address(text)` exposes the addr-spec rule used by strict mode
    and the builder.
-8. **Command line.** `mailtourl parse URI` prints JSON, `mailtourl build --to ...` prints
+8. **Command line.** `mailtolink parse URI` prints JSON, `mailtolink build --to ...` prints
    a URI; exit 2 with the message on an invalid input. Useful when a shell script writes
    a link into a page or a template.
 9. **Contracts.** RFC 6068 examples parsed and rebuilt byte for byte from the pinned file,
@@ -116,10 +116,10 @@ sources below:
 
 - Gates on CPython 3.13.2 (this PC), 3.14.6 and 3.14.2 (two other Windows machines,
   fresh clones): `ruff format --check .`, `ruff check .`, `mypy --strict src` and
-  `pytest`. With `MAILTOURL_E2E=1` the installed-wheel test builds the wheel and sdist,
+  `pytest`. With `MAILTOLINK_E2E=1` the installed-wheel test builds the wheel and sdist,
   checks their contents (no planning notes, no fetched files, the manifest, the fetch
   script and the entry point present), installs the wheel in a fresh venv and drives the
-  API, the `mailtourl` script and `python -m mailtourl` from an empty folder.
+  API, the `mailtolink` script and `python -m mailtolink` from an empty folder.
 - Without the fetched files their tests skip; without Node.js the browser comparison
   skips; the rest of the suite passes either way.
 - A seeded random round trip builds 3000 values and reads each back with the strict and

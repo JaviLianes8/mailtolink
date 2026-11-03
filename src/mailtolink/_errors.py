@@ -18,7 +18,7 @@ class MailtoError(ValueError):
     index in the parsed string where the problem starts, or None when there is none (the
     builder's errors).
 
-    >>> from mailtourl import MailtoError, parse
+    >>> from mailtolink import MailtoError, parse
     >>> try:
     ...     parse("mailto:a@example.com?subject=%0D%0ABcc:%20spy@evil.example")
     ... except MailtoError as error:

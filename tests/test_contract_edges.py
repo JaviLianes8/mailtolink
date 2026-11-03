@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import MailtoError, build, is_address, parse
+from mailtolink import MailtoError, build, is_address, parse
 
 # Unicode noncharacters: U+FDD0 to U+FDEF and the last two code points of every plane.
 NONCHARACTERS = [0xFDD0, 0xFDDF, 0xFDEF, 0xFFFE, 0xFFFF, 0x1FFFE, 0x1FFFF, 0x10FFFE, 0x10FFFF]

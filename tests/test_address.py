@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mailtourl import is_address
+from mailtolink import is_address
 
 # Hand-written cases derived from the ABNF in RFC 5322 section 3.2.3, 3.2.4 and 3.4.1,
 # RFC 6068 section 2 and RFC 6532 section 3.2.

@@ -10,8 +10,8 @@ import re
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, is_address, parse
-from mailtourl._chars import LINE_BREAKS
+from mailtolink import Mailto, MailtoError, build, is_address, parse
+from mailtolink._chars import LINE_BREAKS
 
 TOKENS = [
     *"aZ09-._~!$'()*+,;:@/?#[]&=%\"\\<>` \t\r\n",

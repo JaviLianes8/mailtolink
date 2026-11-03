@@ -8,7 +8,7 @@ import pickle
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, parse
+from mailtolink import Mailto, MailtoError, parse
 
 
 def test_defaults_are_empty() -> None:

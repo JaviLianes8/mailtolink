@@ -7,7 +7,7 @@ from urllib.parse import parse_qsl, urlsplit
 
 import pytest
 
-from mailtourl import Mailto, MailtoError, build, is_address, parse
+from mailtolink import Mailto, MailtoError, build, is_address, parse
 
 
 def test_a_plus_in_a_cc_or_bcc_address_is_encoded() -> None:
